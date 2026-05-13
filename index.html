@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Step Up Export English Diagnostic Test</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════
+       SCREEN 1 — REGISTRATION
+  ═══════════════════════════════════════════════ -->
+  <div id="screen-registration" class="screen active">
+    <div class="layout-split">
+
+      <!-- Left panel: brand + intro -->
+      <div class="panel-brand">
+        <div class="brand-inner">
+          <div class="brand-logo">
+            <span class="logo-mark">SU</span>
+          </div>
+          <p class="brand-label">Step Up Business Solutions</p>
+          <h1 class="brand-title">Export English<br/>Diagnostic</h1>
+          <p class="brand-sub">Functional English for export teams</p>
+          <div class="brand-divider"></div>
+          <p class="brand-desc">
+            This diagnostic captures your responses in basic export communication scenarios.
+            It is not a grammar exam — there are no right or wrong answers at this stage.
+          </p>
+          <div class="brand-tags">
+            <span class="tag tag--outline">Pre-test</span>
+            <span class="tag tag--outline">Post-test</span>
+            <span class="tag tag--outline">8 scenarios</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right panel: registration form -->
+      <div class="panel-form">
+        <div class="form-card">
+          <h2 class="form-card__title">Participant information</h2>
+          <p class="form-card__hint">All fields required unless marked optional.</p>
+
+          <div class="field-group">
+            <label class="field-label" for="company_name">Company name</label>
+            <input class="field-input" type="text" id="company_name" placeholder="e.g. Café Colombiano S.A." autocomplete="organization" />
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="participant_name">Participant name</label>
+            <input class="field-input" type="text" id="participant_name" placeholder="Full name" autocomplete="name" />
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label class="field-label" for="participant_code">Participant code</label>
+              <input class="field-input" type="text" id="participant_code" placeholder="e.g. P001" />
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="team_area">Team area</label>
+              <select class="field-input field-select" id="team_area">
+                <option value="" disabled selected>Select area</option>
+                <option value="Commercial">Commercial</option>
+                <option value="Administrative">Administrative</option>
+                <option value="Export">Export</option>
+                <option value="Logistics">Logistics</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="role">Role / position</label>
+            <input class="field-input" type="text" id="role" placeholder="e.g. Export coordinator" autocomplete="organization-title" />
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="email_optional">
+              Email <span class="field-optional">(optional)</span>
+            </label>
+            <input class="field-input" type="email" id="email_optional" placeholder="your@email.com" autocomplete="email" />
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">Test type</label>
+            <div class="radio-group">
+              <label class="radio-card" id="radio-pre">
+                <input type="radio" name="test_type" value="pre_test" checked />
+                <div class="radio-card__inner">
+                  <span class="radio-card__dot"></span>
+                  <div>
+                    <strong>Pre-test</strong>
+                    <span>Before the program</span>
+                  </div>
+                </div>
+              </label>
+              <label class="radio-card" id="radio-post">
+                <input type="radio" name="test_type" value="post_test" />
+                <div class="radio-card__inner">
+                  <span class="radio-card__dot"></span>
+                  <div>
+                    <strong>Post-test</strong>
+                    <span>After the program</span>
+                  </div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div id="reg-error" class="error-msg" style="display:none;"></div>
+
+          <button class="btn btn--primary btn--full" id="btn-start">
+            Start Diagnostic
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       SCREEN 2 — DIAGNOSTIC TEST
+  ═══════════════════════════════════════════════ -->
+  <div id="screen-test" class="screen">
+    <div class="test-wrapper">
+
+      <!-- Top bar -->
+      <header class="test-header">
+        <div class="test-header__brand">
+          <span class="logo-mark logo-mark--sm">SU</span>
+          <span>Export Diagnostic</span>
+        </div>
+        <div class="test-header__meta">
+          <span id="header-participant"></span>
+          <span class="test-header__sep">·</span>
+          <span id="header-type"></span>
+        </div>
+        <button class="btn-ghost" id="btn-restart-test" title="Restart test">↺ Restart</button>
+      </header>
+
+      <!-- Progress bar -->
+      <div class="progress-track">
+        <div class="progress-bar" id="progress-bar"></div>
+        <span class="progress-label" id="progress-label">1 of 8</span>
+      </div>
+
+      <!-- Question card -->
+      <main class="question-area">
+        <div class="question-card" id="question-card">
+
+          <div class="question-card__meta">
+            <span class="badge badge--situation" id="q-situation"></span>
+            <span class="badge badge--function" id="q-function"></span>
+          </div>
+
+          <p class="question-card__number" id="q-number">Question 1 of 8</p>
+          <h2 class="question-card__prompt" id="q-prompt"></h2>
+
+          <div class="answer-area">
+            <label class="field-label" for="answer-input">Your response</label>
+            <textarea
+              class="field-input field-textarea"
+              id="answer-input"
+              placeholder="Write your response here..."
+              rows="5"
+            ></textarea>
+            <div id="answer-error" class="error-msg" style="display:none;">Please write a response before continuing.</div>
+          </div>
+
+        </div>
+      </main>
+
+      <!-- Navigation -->
+      <footer class="test-nav">
+        <button class="btn btn--ghost" id="btn-prev" disabled>
+          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/></svg>
+          Previous
+        </button>
+        <div class="nav-dots" id="nav-dots"></div>
+        <button class="btn btn--primary" id="btn-next">
+          Next
+          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+        </button>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       SCREEN 3 — SUMMARY & SUBMISSION
+  ═══════════════════════════════════════════════ -->
+  <div id="screen-summary" class="screen">
+    <div class="summary-wrapper">
+
+      <div class="summary-card">
+        <div class="summary-card__icon">✓</div>
+        <h2 class="summary-card__title">Diagnostic complete</h2>
+        <p class="summary-card__msg">Your diagnostic responses are ready to be reviewed.</p>
+
+        <div class="summary-meta">
+          <div class="summary-meta__item">
+            <span class="summary-meta__label">Participant</span>
+            <span class="summary-meta__value" id="sum-name"></span>
+          </div>
+          <div class="summary-meta__item">
+            <span class="summary-meta__label">Company</span>
+            <span class="summary-meta__value" id="sum-company"></span>
+          </div>
+          <div class="summary-meta__item">
+            <span class="summary-meta__label">Test type</span>
+            <span class="summary-meta__value" id="sum-type"></span>
+          </div>
+          <div class="summary-meta__item">
+            <span class="summary-meta__label">Questions answered</span>
+            <span class="summary-meta__value" id="sum-count"></span>
+          </div>
+        </div>
+
+        <div id="submit-status" class="submit-status" style="display:none;"></div>
+
+        <div class="summary-actions">
+          <button class="btn btn--primary btn--full" id="btn-submit">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path d="M3 3a1 1 0 000 2h11.586l-4.293 4.293a1 1 0 001.414 1.414L15.414 7H17a1 1 0 000-2H3zM3 15a1 1 0 011-1h11.586l-4.293-4.293a1 1 0 011.414-1.414L16.414 13H17a1 1 0 110 2H4a1 1 0 01-1-1z"/></svg>
+            Submit to Google Sheets
+          </button>
+          <div class="btn-row">
+            <button class="btn btn--secondary" id="btn-download-json">Download JSON</button>
+            <button class="btn btn--secondary" id="btn-download-txt">Download TXT</button>
+            <button class="btn btn--secondary" id="btn-copy-json">Copy JSON</button>
+          </div>
+          <button class="btn btn--ghost btn--full" id="btn-restart-summary">↺ Restart Test</button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
